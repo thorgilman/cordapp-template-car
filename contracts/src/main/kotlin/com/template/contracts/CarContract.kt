@@ -17,9 +17,11 @@ class CarContract : Contract {
 
         val command = tx.commands.requireSingleCommand<Commands.Issue>() // ensure that command is always Move
         requireThat {
+
             "There should be no input state" using (tx.inputs.isEmpty())
             "There should be one output state" using (tx.outputs.size == 1)
             "The output state must be of type CarState" using (tx.outputs.get(0).data is CarState)
+
             val outputState = tx.outputs.get(0).data as CarState
             "The licensePlateNumber must be 7 characters long" using (outputState.licensePlateNumber.length == 7)
         }
